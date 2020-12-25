@@ -29,7 +29,7 @@ cc_toolchain(
 cc_toolchain_suite(
     name = "respi_clang_suite",
     toolchains = {
-        "armv7hf": ":respi_toolchain",
+        "armhf": ":respi_toolchain",
     },
 )
 

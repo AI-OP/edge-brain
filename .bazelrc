@@ -4,5 +4,12 @@ build:clang_config --cpu=k8
 build:clang_config --host_crosstool_top=@bazel_tools//tools/cpp:toolchain
 
 build:rpi --crosstool_top=//toolchain:respi_clang_suite
-build:rpi --cpu=armv7hf
+build:rpi --cpu=armhf
 build:rpi --host_crosstool_top=@bazel_tools//tools/cpp:toolchain
+
+
+# TF settings
+build:elinux --crosstool_top=@local_config_embedded_arm//:toolchain
+build:elinux --host_crosstool_top=@bazel_tools//tools/cpp:toolchain
+build:elinux_armhf --config=elinux
+build:elinux_armhf --cpu=armhf
