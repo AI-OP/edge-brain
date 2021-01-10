@@ -12,3 +12,11 @@ cc_binary(
         "@org_tensorflow//tensorflow/lite:framework",
     ],
 )
+
+cc_binary(
+    name = "hello-opencv",
+    srcs = ["hello_opencv.cc"],
+    deps = [
+            "//third_party:opencv"
+    ],
+)
