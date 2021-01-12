@@ -52,6 +52,8 @@ OPENCV_THIRD_PARTY_DEPS = [
     "libzlib.a",
 ]
 
+OPENCV_DEPS_PATH = "$BUILD_TMPDIR/$INSTALL_PREFIX"
+
 # Note: passing both BUILD_SHARED_LIBS=ON and BUILD_STATIC_LIBS=ON to cmake
 # still only builds the shared libraries, so we have to choose one or the
 # other. We build shared libraries by default, but this variable can be used
@@ -110,7 +112,7 @@ cmake_external(
         "ENABLE_CCACHE": "OFF",
     },
 
-#    make_commands = ["make", "make install"] + ["export LIBRARY_PATH=$LIBRARY_PATH:$INSTALLDIR/share/OpenCV/3rdparty/lib"],
+    make_commands = ["make -j4", "make install"] + ["cp {}/share/OpenCV/3rdparty/lib/*.a {}/lib/".format(OPENCV_DEPS_PATH, OPENCV_DEPS_PATH)],
 
     lib_source = "@opencv//:all",
     linkopts = [] if OPENCV_SHARED_LIBS else [
@@ -123,11 +125,11 @@ cmake_external(
         # from lib/pkgconfig/opencv.pc in bazel-out
 
         # TODO: It's just a workaround, would be modified in the future.
-        "-L./bazel-out/armhf-fastbuild/bin/third_party/copy_opencv_cmake/opencv_cmake/share/OpenCV/4rdparty/lib",
-        "-lzlib",
-        "-llibjpeg-turbo",
-        "-llibpng",
-        "-ltegra_hal",
+#        "-L./bazel-out/armhf-fastbuild/bi/copy_opencv_cmake/opencv_cmake/share/OpenCV/3rdparty/lib",
+#        "-lzlib",
+#        "-llibjpeg-turbo",
+#        "-llibpng",
+#        "-ltegra_hal",
 
         "-ldl",
         "-lm",
@@ -145,7 +147,7 @@ cmake_external(
     static_libraries = [
         "libopencv_%s.a" % module
         for module in OPENCV_MODULES
-    ] if not OPENCV_SHARED_LIBS else None,
+    ] + [module for module in OPENCV_THIRD_PARTY_DEPS] if not OPENCV_SHARED_LIBS else None,
 
     alwayslink=True,
 #    deps = ["liblibjpeg-turbo.a",
