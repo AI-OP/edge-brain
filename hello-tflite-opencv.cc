@@ -17,7 +17,7 @@ limitations under the License.
 #include "tensorflow/lite/kernels/register.h"
 #include "tensorflow/lite/model.h"
 #include "tensorflow/lite/optional_debug_tools.h"
-#include <opencv2/opencv.h>
+#include <opencv2/opencv.hpp>
 // This is an example that is minimal to read a model
 // from disk and perform inference. There is no data being loaded
 // that is up to you to add as a user.
@@ -42,6 +42,8 @@ int main(int argc, char* argv[]) {
   cv::Mat image(kImageHeight, kImageWidth, CV_8UC3);
 
   image.setTo(cv::Scalar(0,255,0));
+
+  cv::imwrite("test_ok.jpg", image);
 
   if (argc != 2) {
     fprintf(stderr, "minimal <tflite model>\n");

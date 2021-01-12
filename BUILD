@@ -21,3 +21,16 @@ cc_binary(
     ],
     linkstatic=True,
 )
+
+cc_binary(
+    name = "hello-tflite-opencv",
+    srcs = ["hello-tflite-opencv.cc"],
+    deps = [
+        "@org_tensorflow//tensorflow/lite:builtin_op_data",
+        "@org_tensorflow//tensorflow/lite/kernels:builtin_ops",
+        "@org_tensorflow//tensorflow/lite:framework",
+	"//third_party:opencv",
+    ],
+    linkstatic=True,
+)
+
