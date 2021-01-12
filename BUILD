@@ -17,6 +17,7 @@ cc_binary(
     name = "hello-opencv",
     srcs = ["hello_opencv.cc"],
     deps = [
-            "//third_party:opencv"
+        "//third_party:opencv",
     ],
+    linkstatic=True,
 )

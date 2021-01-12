@@ -1,4 +1,4 @@
-# Copyright 2021 Sun Aries.
+# Copyright 2021 Sun Aries, MediaPipe Authors
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -43,6 +43,15 @@ OPENCV_MODULES = [
     "core",
 ]
 
+OPENCV_THIRD_PARTY_DEPS = [
+    "liblibjpeg-turbo.a",
+    "liblibpng.a",
+    "liblibprotobuf.a",
+    "libquirc.a",
+    "libtegra_hal.a",
+    "libzlib.a",
+]
+
 # Note: passing both BUILD_SHARED_LIBS=ON and BUILD_STATIC_LIBS=ON to cmake
 # still only builds the shared libraries, so we have to choose one or the
 # other. We build shared libraries by default, but this variable can be used
@@ -59,18 +68,25 @@ cmake_external(
         "CMAKE_BUILD_TYPE": "Release",
         # The module list is always sorted alphabetically so that we do not
         # cause a rebuild when changing the link order.
+        "CMAKE_TOOLCHAIN_FILE": "$EXT_BUILD_ROOT/external/opencv/platforms/linux/arm-gnueabi.toolchain.cmake",
         "BUILD_LIST": ",".join(sorted(OPENCV_MODULES)),
         "BUILD_TESTS": "OFF",
         "BUILD_PERF_TESTS": "OFF",
         "BUILD_EXAMPLES": "OFF",
         "BUILD_SHARED_LIBS": "ON" if OPENCV_SHARED_LIBS else "OFF",
         "WITH_ITT": "OFF",
+        "WITH_TIFF": "OFF",
         "WITH_JASPER": "OFF",
         "WITH_WEBP": "OFF",
-        "ENABLE_NEON": "OFF",
+#        "ENABLE_NEON": "TRUE",
         "BUILD_PNG": "ON",
         "BUILD_JPEG": "ON",
         "BUILD_ZLIB": "ON",
+        #"WITH_OPENCL": "OFF",
+        #"WITH_OPENCLAMDBLAS": "OFF",
+        #"WITH_OPENCLAMDFFT": "OFF",
+        #"OPENCV_FORCE_3RDPARTY_BUILD": "ON",
+
         # When building tests, by default Bazel builds them in dynamic mode.
         # See https://docs.bazel.build/versions/master/be/c-cpp.html#cc_binary.linkstatic
         # For example, when building //mediapipe/calculators/video:opencv_video_encoder_calculator_test,
@@ -93,6 +109,9 @@ cmake_external(
         # In any case, Bazel does its own caching of the rule's outputs.
         "ENABLE_CCACHE": "OFF",
     },
+
+#    make_commands = ["make", "make install"] + ["export LIBRARY_PATH=$LIBRARY_PATH:$INSTALLDIR/share/OpenCV/3rdparty/lib"],
+
     lib_source = "@opencv//:all",
     linkopts = [] if OPENCV_SHARED_LIBS else [
         # When using static libraries, the binary that eventually depends on the
@@ -102,21 +121,14 @@ cmake_external(
         # the build, and so depends on what is installed on the local system.
         # After building, the linkopts for the current setup can be extracted
         # from lib/pkgconfig/opencv.pc in bazel-out
-        "-ljpeg",
-        "-lpng",
-        "-lz",
-        "-ltiff",
-        "-lImath",
-        "-lIlmImf",
-        "-lIex",
-        "-lHalf",
-        "-lIlmThread",
-        "-ldc1394",
-        "-lavcodec",
-        "-lavformat",
-        "-lavutil",
-        "-lswscale",
-        "-lavresample",
+
+        # TODO: It's just a workaround, would be modified in the future.
+        "-L./bazel-out/armhf-fastbuild/bin/third_party/copy_opencv_cmake/opencv_cmake/share/OpenCV/4rdparty/lib",
+        "-lzlib",
+        "-llibjpeg-turbo",
+        "-llibpng",
+        "-ltegra_hal",
+
         "-ldl",
         "-lm",
         "-lpthread",
@@ -134,5 +146,14 @@ cmake_external(
         "libopencv_%s.a" % module
         for module in OPENCV_MODULES
     ] if not OPENCV_SHARED_LIBS else None,
+
+    alwayslink=True,
+#    deps = ["liblibjpeg-turbo.a",
+#            "liblibpng.a", 
+#            "liblibprotobuf.a",
+#            "libquirc.a",
+#            "libtegra_hal.a", 
+#            "libzlib.a",
+#    ],
 )
 
