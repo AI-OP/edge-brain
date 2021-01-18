@@ -35,7 +35,7 @@ limitations under the License.
   }
 
 int main(int argc, char* argv[]) {
-  
+
   const int kImageHeight = 240;
   const int kImageWidth = 320;
 

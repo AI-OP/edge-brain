@@ -60,6 +60,7 @@ OPENCV_DEPS_PATH = "$BUILD_TMPDIR/$INSTALL_PREFIX"
 # to switch to static libraries.
 OPENCV_SHARED_LIBS = False
 
+#  TODO(Duan-JM): Need to configure referring to WORKSPACE Fix by 18-01-21 (bug ####)
 OPENCV_SO_VERSION = "3.4"
 
 cmake_external(
@@ -150,12 +151,5 @@ cmake_external(
     ] + [module for module in OPENCV_THIRD_PARTY_DEPS] if not OPENCV_SHARED_LIBS else None,
 
     alwayslink=True,
-#    deps = ["liblibjpeg-turbo.a",
-#            "liblibpng.a", 
-#            "liblibprotobuf.a",
-#            "libquirc.a",
-#            "libtegra_hal.a", 
-#            "libzlib.a",
-#    ],
 )
 

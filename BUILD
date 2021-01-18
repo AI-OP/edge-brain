@@ -15,7 +15,7 @@ cc_binary(
 
 cc_binary(
     name = "hello-opencv",
-    srcs = ["hello_opencv.cc"],
+    srcs = ["hello-opencv.cc"],
     deps = [
         "//third_party:opencv",
     ],
