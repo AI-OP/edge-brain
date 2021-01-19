@@ -29,7 +29,7 @@ cc_binary(
         "@org_tensorflow//tensorflow/lite:builtin_op_data",
         "@org_tensorflow//tensorflow/lite/kernels:builtin_ops",
         "@org_tensorflow//tensorflow/lite:framework",
-	"//third_party:opencv",
+        "//third_party:opencv",
     ],
     linkstatic=True,
 )
