@@ -12,8 +12,15 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
-
 licenses(["notice"])  # Apache License 2.0
+
+load("@rules_foreign_cc//tools/build_defs:cmake.bzl", "cmake_external")
+load("//third_party:opencv_configs.bzl",
+     "OPENCV_SO_VERSION",
+     "OPENCV_MODULES",
+     "OPENCV_THIRD_PARTY_DEPS",
+     "OPENCV_SHARED_LIBS")
+
 
 exports_files(["LICENSE"])
 
@@ -27,41 +34,8 @@ alias(
     visibility = ["//visibility:public"],
 )
 
-load("@rules_foreign_cc//tools/build_defs:cmake.bzl", "cmake_external")
-
-# Note: this determines the order in which the libraries are passed to the
-# linker, so if library A depends on library B, library B must come _after_.
-# Hence core is at the bottom.
-OPENCV_MODULES = [
-    "calib3d",
-    "features2d",
-    "highgui",
-    "video",
-    "videoio",
-    "imgcodecs",
-    "imgproc",
-    "core",
-]
-
-OPENCV_THIRD_PARTY_DEPS = [
-    "liblibjpeg-turbo.a",
-    "liblibpng.a",
-    "liblibprotobuf.a",
-    "libquirc.a",
-    "libtegra_hal.a",
-    "libzlib.a",
-]
 
 OPENCV_DEPS_PATH = "$BUILD_TMPDIR/$INSTALL_PREFIX"
-
-# Note: passing both BUILD_SHARED_LIBS=ON and BUILD_STATIC_LIBS=ON to cmake
-# still only builds the shared libraries, so we have to choose one or the
-# other. We build shared libraries by default, but this variable can be used
-# to switch to static libraries.
-OPENCV_SHARED_LIBS = False
-
-#  TODO(Duan-JM): Need to configure referring to WORKSPACE Fix by 18-01-21 (bug ####)
-OPENCV_SO_VERSION = "3.4"
 
 cmake_external(
     name = "opencv_cmake",
@@ -112,9 +86,7 @@ cmake_external(
         # In any case, Bazel does its own caching of the rule's outputs.
         "ENABLE_CCACHE": "OFF",
     },
-
     make_commands = ["make -j4", "make install"] + ["cp {}/share/OpenCV/3rdparty/lib/*.a {}/lib/".format(OPENCV_DEPS_PATH, OPENCV_DEPS_PATH)],
-
     lib_source = "@opencv//:all",
     linkopts = [] if OPENCV_SHARED_LIBS else [
         # When using static libraries, the binary that eventually depends on the
@@ -124,14 +96,6 @@ cmake_external(
         # the build, and so depends on what is installed on the local system.
         # After building, the linkopts for the current setup can be extracted
         # from lib/pkgconfig/opencv.pc in bazel-out
-
-        # TODO: It's just a workaround, would be modified in the future.
-#        "-L./bazel-out/armhf-fastbuild/bi/copy_opencv_cmake/opencv_cmake/share/OpenCV/3rdparty/lib",
-#        "-lzlib",
-#        "-llibjpeg-turbo",
-#        "-llibpng",
-#        "-ltegra_hal",
-
         "-ldl",
         "-lm",
         "-lpthread",
@@ -145,10 +109,8 @@ cmake_external(
         # versioned name is the one that the executables actually reference.
         "//conditions:default": ["libopencv_%s.so.%s" % (module, OPENCV_SO_VERSION) for module in OPENCV_MODULES],
     }) if OPENCV_SHARED_LIBS else None,
-    static_libraries = [
-        "libopencv_%s.a" % module
-        for module in OPENCV_MODULES
-    ] + [module for module in OPENCV_THIRD_PARTY_DEPS] if not OPENCV_SHARED_LIBS else None,
+    static_libraries = ["libopencv_%s.a" % module for module in OPENCV_MODULES]
+      + [module for module in OPENCV_THIRD_PARTY_DEPS] if not OPENCV_SHARED_LIBS else None,
 
     alwayslink=True,
 )

@@ -1,6 +1,6 @@
-
 load("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
 load("@bazel_tools//tools/build_defs/repo:git.bzl", "git_repository", "new_git_repository")
+load("//third_party:opencv_configs.bzl", "OPENCV_TAG")
 
 # Configure rules_foreign_cc for OpenCV CMakse used in `third_party/BUILD`
 http_archive(
@@ -23,8 +23,8 @@ all_content = """filegroup(name = "all", srcs = glob(["**"]), visibility = ["//v
 new_git_repository(
     name = "opencv",
     build_file_content = all_content,
-    remote = "https://github.com/opencv/opencv.git",
-    tag = "3.4.10"
+    remote = "https://github.com.cnpmjs.org/opencv/opencv.git",
+    tag = OPENCV_TAG
 )
 
 # Needed by TensorFlow
@@ -40,7 +40,7 @@ http_archive(
 
 git_repository(
     name = "org_tensorflow",
-    remote = "https://github.com/tensorflow/tensorflow.git",
+    remote = "https://github.com.cnpmjs.org/tensorflow/tensorflow.git",
     tag = "v2.4.0"
 )
 
