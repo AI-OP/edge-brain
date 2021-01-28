@@ -1,5 +1,5 @@
 # Bazel-Crosstools-Compiler
-根据 bazel 官网 crosstools 改编的使用 bazel 交叉编译 armv7hf 的简单实例。
+根据 bazel 官网 crosstools 改编的使用 bazel 交叉编译 AI 小程序使其能在 armv7hf 硬件上使用的简单实例。
 
 ## 依赖项安装：
 1. 根据[官网的指南](https://docs.bazel.build/versions/master/install-ubuntu.html)安装 bazel
