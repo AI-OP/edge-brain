@@ -9,7 +9,6 @@
   ```
 3. 使用 Docker 构建 ubuntu:18.04 环境(推荐)
   ```bash
-  cd legacy
   docker build -t bazel-build-env:v0.01 .
   # 将构建一个含有本项目依赖环境的 docker images
   docker run -it --rm -v /path/to/bazel-crosstools-compiler:/mnt/code bazel-build-env:v0.01 bash
