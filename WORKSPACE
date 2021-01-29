@@ -1,4 +1,3 @@
-
 load("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
 load("@bazel_tools//tools/build_defs/repo:git.bzl", "git_repository", "new_git_repository")
 
@@ -18,11 +17,11 @@ http_archive(
 load("@rules_foreign_cc//:workspace_definitions.bzl", "rules_foreign_cc_dependencies")
 rules_foreign_cc_dependencies()
 
+ALL_CONTENT = """filegroup(name = "all", srcs = glob(["**"]), visibility = ["//visibility:public"])"""
 # OpenCV
-all_content = """filegroup(name = "all", srcs = glob(["**"]), visibility = ["//visibility:public"])"""
 new_git_repository(
     name = "opencv",
-    build_file_content = all_content,
+    build_file_content = ALL_CONTENT,
     remote = "https://github.com/opencv/opencv.git",
     tag = "3.4.10"
 )
@@ -46,3 +45,11 @@ git_repository(
 
 load("@org_tensorflow//tensorflow:workspace.bzl", "tf_workspace")
 tf_workspace(tf_repo_name = "org_tensorflow")
+
+# Custom other thirdparty applications into repo as examples.
+git_repository(
+    name = "image-classifier",
+    remote = "https://github.com/SunAriesCN/image-classifier.git",
+    tag="a0.0.1",
+)
+
