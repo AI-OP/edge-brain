@@ -23,7 +23,7 @@ new_git_repository(
     name = "opencv",
     build_file_content = ALL_CONTENT,
     remote = "https://github.com/opencv/opencv.git",
-    tag = "3.4.10"
+    tag = "4.5.0"
 )
 
 # Needed by TensorFlow
@@ -50,6 +50,6 @@ tf_workspace(tf_repo_name = "org_tensorflow")
 git_repository(
     name = "image-classifier",
     remote = "https://github.com/SunAriesCN/image-classifier.git",
-    tag="a0.0.1",
+    commit= "72d80543f1887375abb565988c12af1960fd311f",
 )
 

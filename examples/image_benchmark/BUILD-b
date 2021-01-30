@@ -1,0 +1,6 @@
+cc_binary(
+    name = "image_benchmark",
+    deps = [ 
+        "@image-classifier//image_classifier/apps/raspberry_pi:image_classifier_benchmark",
+    ],  
+)

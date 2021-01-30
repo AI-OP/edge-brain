@@ -1,4 +1,4 @@
-# Copyright 2021 Sun Aries, MediaPipe Authors
+# Copyright 2021 Sun Aries
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -35,6 +35,7 @@ load("@rules_foreign_cc//tools/build_defs:cmake.bzl", "cmake_external")
 OPENCV_MODULES = [
     "calib3d",
     "features2d",
+    "flann",
     "highgui",
     "video",
     "videoio",
@@ -50,6 +51,8 @@ OPENCV_THIRD_PARTY_DEPS = [
     "libquirc.a",
     "libtegra_hal.a",
     "libzlib.a",
+    "libade.a",
+    "liblibopenjp2.a"
 ]
 
 OPENCV_DEPS_PATH = "$BUILD_TMPDIR/$INSTALL_PREFIX"
@@ -61,7 +64,8 @@ OPENCV_DEPS_PATH = "$BUILD_TMPDIR/$INSTALL_PREFIX"
 OPENCV_SHARED_LIBS = False
 
 #  TODO(Duan-JM): Need to configure referring to WORKSPACE Fix by 18-01-21 (bug ####)
-OPENCV_SO_VERSION = "3.4"
+# OPENCV_SO_VERSION = "3.4"
+OPENCV_SO_VERSION = "4.5"
 
 cmake_external(
     name = "opencv_cmake",
@@ -113,7 +117,9 @@ cmake_external(
         "ENABLE_CCACHE": "OFF",
     },
 
-    make_commands = ["make -j4", "make install"] + ["cp {}/share/OpenCV/3rdparty/lib/*.a {}/lib/".format(OPENCV_DEPS_PATH, OPENCV_DEPS_PATH)],
+    make_commands = ["make -j4", "make install"] + \
+		    ["cp {}/lib/opencv4/3rdparty/*.a  {}/lib/".format(OPENCV_DEPS_PATH, OPENCV_DEPS_PATH)] + \
+		    ["cp -rf {}/include/opencv4/opencv2 {}/include/".format(OPENCV_DEPS_PATH, OPENCV_DEPS_PATH)],
 
     lib_source = "@opencv//:all",
     linkopts = [] if OPENCV_SHARED_LIBS else [

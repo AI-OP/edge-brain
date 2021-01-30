@@ -33,3 +33,6 @@
 
 # Bazel Templates
 bazel-*
+
+# TFLite models
+*.tflite
