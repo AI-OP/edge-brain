@@ -61,3 +61,10 @@ git_repository(
 
 load("@org_tensorflow//tensorflow:workspace.bzl", "tf_workspace")
 tf_workspace(tf_repo_name = "org_tensorflow")
+
+# Custom other thirdparty applications into repo as examples.
+git_repository(
+    name = "image-classifier",
+    remote = "https://github.com/SunAriesCN/image-classifier.git",
+    commit= "72d80543f1887375abb565988c12af1960fd311f",
+)
