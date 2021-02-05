@@ -21,7 +21,7 @@ PS: All examples listed below have passed the test in ubuntu:18.04 docker enviro
 ### Hello World
 1. Cross compile `hello-world.cc` locally
   ```bash
-  bazel build --config rpi hello # just test for custom toolchain, recommended use elinux_armhf toolchain
+  bazel build --config rpi hello --experimental_repo_remote_exe # just test for custom toolchain, recommended use elinux_armhf toolchain
   ```
 
 2. Copy the folder named `bazel-bin` to Respi4b, then execute the `hello` file.
@@ -29,7 +29,7 @@ PS: All examples listed below have passed the test in ubuntu:18.04 docker enviro
 ### Hello-TFLite
 1. Use official toolchain contained in Tensorflow Repo to cross compile tflite's minimal example (`minimal.cc`)
   ```bash
-  bazel build --config elinux_armhf hello-tflite
+  bazel build --config elinux_armhf hello-tflite --experimental_repo_remote_exe 
   ```
 2. Copy folders, `bazel-bin` and `files`, also tflite model files (in ./files) to Respi4b. After that place tflite model file and executable file `hello-tflite` in the same place to test.
   ```bash
@@ -39,15 +39,15 @@ PS: All examples listed below have passed the test in ubuntu:18.04 docker enviro
 ### Hello-OpenCV
 1. Cross compile OpenCV with toolchain, then compile `hello-opencv.cc`
   ```bash
-  bazel build --config elinux_armhf hello-opencv
+  bazel build --config elinux_armhf hello-opencv --experimental_repo_remote_exe 
   ```
 
 2. Copy file to Respi4b
 
-### Hello-TFLite-Opencv
+### Hello-TFLite-OpenCV
 1. Cross compile OpenCV and also compile TFLite sample application, `hello-tflite-opencv.cc`
   ```bash
-  bazel build --config elinux_armhf hello-tflite-opencv
+  bazel build --config elinux_armhf hello-tflite-opencv --experimental_repo_remote_exe 
   ```
 
 2. Copy file to Respi4b
