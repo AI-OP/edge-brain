@@ -23,7 +23,7 @@ ALL_CONTENT = """filegroup(name = "all", srcs = glob(["**"]), visibility = ["//v
 new_git_repository(
     name = "opencv",
     build_file_content = ALL_CONTENT,
-    remote = "https://github.com.cnpmjs.org/opencv/opencv.git",
+    remote = "https://github.com/opencv/opencv.git",
     tag = OPENCV_TAG
 )
 
@@ -40,7 +40,7 @@ http_archive(
 
 git_repository(
     name = "org_tensorflow",
-    remote = "https://github.com.cnpmjs.org/tensorflow/tensorflow.git",
+    remote = "https://github.com/tensorflow/tensorflow.git",
     tag = "v2.4.0"
 )
 
@@ -52,5 +52,12 @@ git_repository(
     name = "image-classifier",
     remote = "https://github.com/SunAriesCN/image-classifier.git",
     commit= "72d80543f1887375abb565988c12af1960fd311f",
+)
+
+# ABSL cpp library 
+git_repository(
+    name = "com_goolge_absl",
+    remote = "https://github.com/abseil/abseil-cpp",
+    commit = "6f9d96a1f41439ac172ee2ef7ccd8edf0e5d068c",
 )
 

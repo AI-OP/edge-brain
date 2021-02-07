@@ -21,6 +21,15 @@ limitations under the License.
 #include "tensorflow/lite/kernels/register.h"
 #include "tensorflow/lite/optional_debug_tools.h"
 
+#include "absl/memory/memory.h"
+
+#define CHECK(condition, error_info) \
+    if(!(condition)) { \
+        printf("Error: %s\n", error_info);\
+        exit(-1); \
+    }\
+
+
 #define TFLITE_CHECK(x)                                      \
   if (!(x)) {                                                \
     fprintf(stderr, "Error at %s:%d\n", __FILE__, __LINE__); \
@@ -37,21 +46,24 @@ enum ModelType {
 
 class MIRNet {
  public:
-  virtual bool Init(const std::string model_dir, const ModelType& model_type);
+  virtual bool Init(const std::string model_path, const ModelType& model_type);
   virtual bool EnhanceImage(const cv::Mat& image, cv::Mat& output_image); 
 
   virtual std::string GetModelName();
 
- protected:
+ private:
   virtual bool Preprocess(const cv::Mat& image, cv::Mat& input_buffer);
   virtual bool RunInference(const cv::Mat& input_buffer, cv::Mat& output_buffer);
   virtual bool Postprocess(const cv::Mat& output_buffer, cv::Mat& output_image);
 
- protected:
+ private:
   std::unique_ptr<tflite::Interpreter> interpreter_;
   std::unique_ptr<tflite::FlatBufferModel> model_;
 
   std::string model_name_;
+
+  int input_tensor_index_;
+  int output_tensor_index_;
 
  public:
   MIRNet();
