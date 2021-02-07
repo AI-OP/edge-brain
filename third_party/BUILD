@@ -35,9 +35,7 @@ alias(
     visibility = ["//visibility:public"],
 )
 
-
 OPENCV_DEPS_PATH = "$BUILD_TMPDIR/$INSTALL_PREFIX"
-
 cmake_external(
     name = "opencv_cmake",
     # Values to be passed as -Dkey=value on the CMake command line;

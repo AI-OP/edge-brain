@@ -1,7 +1,7 @@
 # Bazel-Crosstools-Compiler
-根据 bazel 官网 crosstools 改编的使用 bazel 交叉编译 armv7hf 的简单实例。
+根据 bazel 官网 crosstools 改编的使用 bazel 交叉编译 AI 小程序使其能在 armv7hf 硬件上使用的简单实例。
 
-## 依赖项安装：
+## 依赖项安装
 1. 根据[官网的指南](https://docs.bazel.build/versions/master/install-ubuntu.html)安装 bazel
 2. MacOS 安装交叉编译需要的环境 (不推荐)
   ```bash
@@ -9,7 +9,6 @@
   ```
 3. 使用 Docker 构建 ubuntu:18.04 环境(推荐)
   ```bash
-  cd legacy
   docker build -t bazel-build-env:v0.01 .
   # 将构建一个含有本项目依赖环境的 docker images
   docker run -it --rm -v /path/to/bazel-crosstools-compiler:/mnt/code bazel-build-env:v0.01 bash
@@ -22,7 +21,7 @@
 ### Hello World
 1. 本机编译 hello world 程序
   ```bash
-  bazel build --config rpi hello # 仅为测试案例，建议使用 elinux_armhf 来配置
+  bazel build --config rpi hello --experimental_repo_remote_exe # 仅为测试案例，建议使用 elinux_armhf 来配置
   ```
 
 2. 拷贝 `bazel-bin` 目录到树莓派之后运行其中的可执行文件 `hello`
@@ -30,7 +29,7 @@
 ### Hello-TFLite
 1. 使用 Tensorflow 中的交叉编译 toolchain 编译 minimal.cc
   ```bash
-  bazel build --config elinux_armhf hello-tflite
+  bazel build --config elinux_armhf hello-tflite --experimental_repo_remote_exe 
   ```
 2. 拷贝 `bazel-bin` 和 `files` 目录中的 tflite 模型到树莓派后，将 tflite
    模型和可执行文件 `hello-tflite` 放在一起进行测试。
@@ -41,7 +40,7 @@
 ### Hello-OpenCV
 1. 交叉编译 OpenCV 并编译 hello-opencv.cc
   ```bash
-  bazel build --config elinux_armhf hello-opencv
+  bazel build --config elinux_armhf hello-opencv --experimental_repo_remote_exe
   ```
 
 2. 拷贝文件至树莓派
@@ -49,7 +48,7 @@
 ### Hello-TFLite-Opencv
 1. 交叉编译 OpenCV 并编译含有 TFLite 的样例程序 hello-tflite-opencv.cc
   ```bash
-  bazel build --config elinux_armhf hello-tflite-opencv
+  bazel build --config elinux_armhf hello-tflite-opencv --experimental_repo_remote_exe
   ```
 
 2. 拷贝文件至树莓派
