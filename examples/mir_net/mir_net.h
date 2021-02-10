@@ -52,9 +52,9 @@ class MIRNet {
   virtual std::string GetModelName();
 
  private:
-  virtual bool Preprocess(const cv::Mat& image, cv::Mat& input_buffer);
+  virtual bool Preprocess(const cv::Mat& image, cv::Mat& input_buffer, cv::Size& output_size);
   virtual bool RunInference(const cv::Mat& input_buffer, cv::Mat& output_buffer);
-  virtual bool Postprocess(const cv::Mat& output_buffer, cv::Mat& output_image);
+  virtual bool Postprocess(const cv::Mat& output_buffer, const cv::Size& size, cv::Mat& output_image);
 
  private:
   std::unique_ptr<tflite::Interpreter> interpreter_;

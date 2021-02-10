@@ -27,28 +27,6 @@ std::string MIRNet::GetModelName() {
 bool MIRNet::Init(const std::string model_path, 
                   const ModelType& model_type) {
 
-//    switch(model_type) {
-//        case kDynamicRange:
-//            model_name_ = "";
-//            break;
-//        case kInt8:
-//            model_name_ = "";
-//            break;
-//        case kFloat16:
-//            model_name_ = "";
-//            break;
-//        default:
-//            break;
-//    }
-//
-//    if(model_name_.empty()) {
-//        printf("Error: this model has no name.");
-//        assert(false);
-//        return false;
-//    } 
-//    
-//    std::string model_path = model_dir + '/' + GetModelName(); 
-
     model_ = tflite::FlatBufferModel::BuildFromFile(model_path.c_str());
     CHECK(model_ != nullptr, "Model cannot be built.");
 
@@ -57,24 +35,37 @@ bool MIRNet::Init(const std::string model_path,
     builder(&interpreter_); 
     CHECK(this->interpreter_ != nullptr, "Interpreter is null.");
 
+    interpreter_->AllocateTensors();
+
     input_tensor_index_ = interpreter_ -> inputs()[0];
     output_tensor_index_ = interpreter_ -> outputs()[0];
 
     return true; 
 }
 
-bool MIRNet::Preprocess(const cv::Mat& image, cv::Mat& input_buffer) {
+bool MIRNet::Preprocess(const cv::Mat& image, cv::Mat& input_buffer, cv::Size& output_size) {
 
     if(image.empty()) {
         printf("Error: input image is emtpy on Preprocess.");
         return false;
     }
 
-    cv::Mat buffer = image.clone();
+    int net_height = interpreter_->tensor(input_tensor_index_)->dims->data[1];
+    int net_width = interpreter_->tensor(input_tensor_index_)->dims->data[2];
 
+    float k = std::min((float)net_width/image.cols, (float) net_height/ image.rows);
+
+    output_size = cv::Size(image.cols*k , image.rows*k); 
+
+    cv::Mat resized_image;
+    cv::resize(image, resized_image, cv::Size(), k, k);
+    cv::Mat buffer = cv::Mat::zeros(net_height, net_width, CV_8UC3);
+    cv::Rect rect(0, 0, resized_image.cols, resized_image.rows);
+    resized_image.copyTo(buffer(rect)); 
     buffer.convertTo(buffer, CV_32F, 1./255);
-
     buffer.copyTo(input_buffer);
+    
+    std::cout<< "Info: MIRNet::Preprocess completed." << std::endl;
 
     return true;
 }
@@ -88,10 +79,9 @@ bool MIRNet::RunInference(const cv::Mat& input_buffer,
     }
 
     assert(input_buffer.channels() == 3);
-    interpreter_->ResizeInputTensor(input_tensor_index_, 
-            {1, input_buffer.rows, input_buffer.cols, 3});
+//    interpreter_->ResizeInputTensor(input_tensor_index_, 
+//            {1, input_buffer.rows, input_buffer.cols, 3});
 
-    interpreter_->AllocateTensors();
 
     size_t buffer_size = sizeof(float)*input_buffer.rows*input_buffer.cols*3;
 
@@ -106,24 +96,33 @@ bool MIRNet::RunInference(const cv::Mat& input_buffer,
     output_buffer.create(input_buffer.rows, input_buffer.cols, CV_32FC3);
     memcpy(output_buffer.data, output_buffer_data, buffer_size);
 
+    std::cout<<"Info: MIRNet::RunInference completed."<<std::endl;
+
     return true;
 }
 
-bool MIRNet::Postprocess(const cv::Mat& output_buffer, cv::Mat& output_image) {
+bool MIRNet::Postprocess(const cv::Mat& output_buffer, const cv::Size& size, cv::Mat& output_image) {
     
     if(output_buffer.empty()) {
         printf("Error: output_buffer is empty on Postprocess.");
         return false;
     }
 
-    output_buffer.convertTo(output_image, CV_8U, 255.);
+    output_buffer(cv::Rect(0,0, size.width, size.height)).copyTo(output_image);
+    output_image.convertTo(output_image, CV_8U, 255.);
+    
+    // output_buffer.convertTo(output_image, CV_8U, 255.);
+
+    std::cout<<"Info: MIRNet::Postprocess completed."<<std::endl;
+
     return true;
 }
 
 bool MIRNet::EnhanceImage(const cv::Mat& image, cv::Mat& output_image) {
 
-    cv::Mat input_buffer;  
-    bool is_ok = Preprocess(image, input_buffer);
+    cv::Mat input_buffer;
+    cv::Size size;
+    bool is_ok = Preprocess(image, input_buffer, size);
     if(!is_ok) {
         printf("Error: preprocessing got some errors.");
         assert(false);
@@ -138,7 +137,7 @@ bool MIRNet::EnhanceImage(const cv::Mat& image, cv::Mat& output_image) {
         return false;
     }
 
-    is_ok = Postprocess(output_buffer, output_image); 
+    is_ok = Postprocess(output_buffer, size, output_image); 
     if(!is_ok) {
         printf("Error: post-processing got errors.");
         assert(false);

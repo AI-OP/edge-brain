@@ -49,7 +49,12 @@ int main(int argc, char** argv) {
     }
 
     cv::Mat enhanced_image;
+    cv::TickMeter tick_meter;
+    tick_meter.start();
     image_enhancer->EnhanceImage(image, enhanced_image); 
+    tick_meter.stop();
+
+    printf("It's take %lf ms to enhance an image.", tick_meter.getTimeMilli());
 
     std::string output_image_path = parser.has("o") ? \
                                     parser.get<std::string>("o") : \

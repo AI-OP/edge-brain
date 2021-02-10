@@ -19,6 +19,7 @@ cc_binary(
         "@org_tensorflow//tensorflow/lite:builtin_op_data",
         "@org_tensorflow//tensorflow/lite/kernels:builtin_ops",
         "@org_tensorflow//tensorflow/lite:framework",
+        "@org_tensorflow//tensorflow/lite:tflite_with_xnnpack",
         "@com_google_absl//absl/memory",
         "//third_party:opencv"
     ]
