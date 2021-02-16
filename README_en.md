@@ -18,36 +18,38 @@ Simple examples of using bazel to cross compile AI applicaions for armv7hf devic
 ## How to test examples
 PS: All examples listed below have passed the test in ubuntu:18.04 docker environment. 
 
-### Hello World
-1. Cross compile `hello-world.cc` locally
-  ```bash
-  bazel build --config rpi hello --experimental_repo_remote_exe # just test for custom toolchain, recommended use elinux_armhf toolchain
-  ```
-
-2. Copy the folder named `bazel-bin` to Respi4b, then execute the `hello` file.
-
-### Hello-TFLite
+### Cross compile Hello-TFLite
 1. Use official toolchain contained in Tensorflow Repo to cross compile tflite's minimal example (`minimal.cc`)
   ```bash
   bazel build --config elinux_armhf hello-tflite --experimental_repo_remote_exe 
   ```
-2. Copy folders, `bazel-bin` and `files`, also tflite model files (in ./files) to Respi4b. After that place tflite model file and executable file `hello-tflite` in the same place to test.
+2. Copy folders, `bazel-bin` and `models`, also tflite model files (in ./models) to Respi4b. After that place tflite model file and executable file `hello-tflite` in the same place to test.
   ```bash
   /Path/To/Bazel-bin/test-tflite ./test-model.tflite # Will return model architecture
   ```
 
-### Hello-OpenCV
+### Cross compile Hello-OpenCV
 1. Cross compile OpenCV with toolchain, then compile `hello-opencv.cc`
   ```bash
-  bazel build --config elinux_armhf hello-opencv --experimental_repo_remote_exe 
+  bazel build --config elinux_armhf //examples/hello_opencv:hello-opencv --experimental_repo_remote_exec
   ```
 
 2. Copy file to Respi4b
 
-### Hello-TFLite-OpenCV
-1. Cross compile OpenCV and also compile TFLite sample application, `hello-tflite-opencv.cc`
+### Cross compile external repo [image-lassifier](https://github.com/SunAriesCN/image-classifier) project
+
+1. Cross compile project in external repo
   ```bash
-  bazel build --config elinux_armhf hello-tflite-opencv --experimental_repo_remote_exe 
+  bazel build --config elinux_armhf //examples/image_benchmark:image_benchmark --experimental_repo_remote_exec
+  ```
+
+2. Copy file to Respi4b
+
+### Cross compile external repo [mirnet](https://github.com/SunAriesCN/image-classifier) project
+
+1. Cross compile project in external repo
+  ```bash
+  bazel build --config elinux_armhf //examples/mir_net:mir_net --experimental_repo_remote_exec # --verbose_failures
   ```
 
 2. Copy file to Respi4b

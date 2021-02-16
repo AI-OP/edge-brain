@@ -18,37 +18,37 @@
 ## 使用测试方法
 注意事项为当前项目的所有环境均在 ubuntu:18.04 docker 环境下测试通过。
 
-### Hello World
-1. 本机编译 hello world 程序
-  ```bash
-  bazel build --config rpi hello --experimental_repo_remote_exe # 仅为测试案例，建议使用 elinux_armhf 来配置
-  ```
-
-2. 拷贝 `bazel-bin` 目录到树莓派之后运行其中的可执行文件 `hello`
-
-### Hello-TFLite
+### 测试交叉编译 Hello-TFLite
 1. 使用 Tensorflow 中的交叉编译 toolchain 编译 minimal.cc
   ```bash
-  bazel build --config elinux_armhf hello-tflite --experimental_repo_remote_exe 
+  bazel build --config elinux_armhf //examples/hello_world:hello_world --experimental_repo_remote_exec
   ```
-2. 拷贝 `bazel-bin` 和 `files` 目录中的 tflite 模型到树莓派后，将 tflite
+2. 拷贝 `bazel-bin` 和 `models` 目录中的 tflite 模型到树莓派后，将 tflite
    模型和可执行文件 `hello-tflite` 放在一起进行测试。
   ```
   /Path/To/Bazel-bin/test-tflite ./test-model.tflite # 返回模型的结构
   ```
 
-### Hello-OpenCV
+### 测试交叉编译 Hello-OpenCV
 1. 交叉编译 OpenCV 并编译 hello-opencv.cc
   ```bash
-  bazel build --config elinux_armhf hello-opencv --experimental_repo_remote_exe
+  bazel build --config elinux_armhf //examples/hello_opencv:hello-opencv --experimental_repo_remote_exec
   ```
 
 2. 拷贝文件至树莓派
 
-### Hello-TFLite-Opencv
-1. 交叉编译 OpenCV 并编译含有 TFLite 的样例程序 hello-tflite-opencv.cc
+### 测试交叉编译第三方仓库中 [image-lassifier](https://github.com/SunAriesCN/image-classifier) 样例
+1. 交叉编译第三方 Repo 中对应项目
   ```bash
-  bazel build --config elinux_armhf hello-tflite-opencv --experimental_repo_remote_exe
+  bazel build --config elinux_armhf //examples/image_benchmark:image_benchmark --experimental_repo_remote_exec
+  ```
+
+2. 拷贝文件至树莓派
+
+### 测试交叉编译第三方仓库中 [mirnet](https://github.com/SunAriesCN/image-classifier) 样例
+1. 交叉编译第三方 Repo 中对应项目
+  ```bash
+  bazel build --config elinux_armhf //examples/mir_net:mir_net --experimental_repo_remote_exec # --verbose_failures
   ```
 
 2. 拷贝文件至树莓派
