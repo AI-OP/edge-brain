@@ -69,10 +69,9 @@ git_repository(
     commit= "72d80543f1887375abb565988c12af1960fd311f",
 )
 
-# ABSL cpp library 
+# ABSL cpp library
 git_repository(
     name = "com_goolge_absl",
     remote = "https://github.com/abseil/abseil-cpp",
     commit = "6f9d96a1f41439ac172ee2ef7ccd8edf0e5d068c",
 )
-
