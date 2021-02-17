@@ -1,5 +1,6 @@
-# Bazel-Crosstools-Compiler
-根据 bazel 官网 crosstools 改编的使用 bazel 交叉编译 AI 小程序使其能在 armv7hf 硬件上使用的简单实例。
+# Edge-Brain
+
+这几年我们逐渐看到越来越多的智能终端设备出现在工作生活的不同角落，如智能家电、商城客服机器人、物流配送无人小车、智能监控等等，它们可以为我们生活带来各种各样的便利。因此，边缘智能与 AIoT 已成为不少国内外企业发展的一个重要方向。边缘智能是一项以嵌入式设备应用开发为基础的前沿技术，我们需要在一些资源紧张的嵌入式设备，如 MCU、SOC，部署如人脸识别、物体检测、音频分类等智能应用。然而，我们又看到现实的嵌入式智能应用开发面正临着一些软硬件生态兼容方面的挑战。例如，芯片厂商提供推荐的板载系统往往是定制的，使用不同的编译工具，而且大多不会有 Python 解释器。所以，当我们打算将自己的智能应用部署到嵌入式设备时，我们绕不开 AI 推理框架跨平台的问题。TensorFlow Lite 应用 C++ 作为框架底层的基础实现可以天然保证跨平台扩展特性，但由于它的这项技术的比较前沿，在嵌入式 Linux 设备上以 Python 接口为主，有些开发者不太适应，认为不易上手。为此，我们开发 Edge Brain 方便开发者以其熟悉的交叉编译方式部署 TensorFlow Lite  智能应用，让他们的嵌入式应用走向智能化。
 
 ## 依赖项安装
 1. 根据[官网的指南](https://docs.bazel.build/versions/master/install-ubuntu.html)安装 bazel
@@ -11,7 +12,7 @@
   ```bash
   docker build -t bazel-build-env:v0.01 .
   # 将构建一个含有本项目依赖环境的 docker images
-  docker run -it --rm -v /path/to/bazel-crosstools-compiler:/mnt/code bazel-build-env:v0.01 bash
+  docker run -it --rm -v /path/to/edge-brain:/mnt/code bazel-build-env:v0.01 bash
   # 把代码挂载到容器 /mnt/code 目录下，并交互式运行 bash
   ```
 
