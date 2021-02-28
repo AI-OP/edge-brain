@@ -18,7 +18,7 @@ RUN apt update -y \
       && pip3 install numpy \
       && wget https://github.com/bazelbuild/bazelisk/releases/download/v1.7.5/bazelisk-linux-amd64 \
       && chmod +x bazelisk-linux-amd64 \
-      && mv bazelisk-linux-amd64 /usr/bin/bazel \ 
+      && mv bazelisk-linux-amd64 /usr/bin/bazel \
       && echo 'export PATH=$PATH:$HOME/bin' >> ~/.bashrc \
       && apt-get purge -y --auto-remove \
       && rm -rf bazel-3.7.2-installer-linux-x86_64.sh
