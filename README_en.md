@@ -4,11 +4,7 @@ In the past few years, we have gradually seen more and more smart terminal devic
 
 ## Requirements Installation
 1. Install Bazel refer to [Official Tutorial](https://docs.bazel.build/versions/master/install-ubuntu.html)
-2. MacOS installation environment required for cross compilation (NOT RECOMMENDED) 
-  ```bash
-  sudo apt-get install clang libc6-armel-cross libc6-dev-armel-cross binutils-arm-linux-gnueabihf libncurses5-dev build-essential bison flex libssl-dev bc
-  ```
-3. Use Docker to build ubuntu:18.04 environment (RECOMMENDED)
+2. Use Docker to build ubuntu:18.04 environment (RECOMMENDED)
   ```bash
   docker build -t bazel-build-env:v0.01 .
   # build docker images which included all requirements for this repo

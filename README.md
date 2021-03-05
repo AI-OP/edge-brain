@@ -4,11 +4,7 @@
 
 ## 依赖项安装
 1. 根据[官网的指南](https://docs.bazel.build/versions/master/install-ubuntu.html)安装 bazel
-2. MacOS 安装交叉编译需要的环境 (不推荐)
-  ```bash
-  sudo apt-get install clang libc6-armel-cross libc6-dev-armel-cross binutils-arm-linux-gnueabihf libncurses5-dev build-essential bison flex libssl-dev bc
-  ```
-3. 使用 Docker 构建 ubuntu:18.04 环境(推荐)
+2. 使用 Docker 构建 ubuntu:18.04 环境(推荐)
   ```bash
   docker build -t bazel-build-env:v0.01 .
   # 将构建一个含有本项目依赖环境的 docker images
