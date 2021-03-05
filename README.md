@@ -46,7 +46,7 @@
 
 2. 拷贝文件至树莓派
 
-### 测试交叉编译第 [MIRNet](https://github.com/SunAriesCN/image-classifier) 样例
+### 测试交叉编译 [MIRNet](https://github.com/SunAriesCN/image-classifier) 样例
 1. 交叉编译第三方 Repo 中对应项目
   ```bash
   bazel build --config elinux_armhf //examples/mir_net:mir_net --experimental_repo_remote_exec # --verbose_failures
