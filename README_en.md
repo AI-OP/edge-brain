@@ -22,7 +22,7 @@ PS: All examples listed below have passed the test in ubuntu:18.04 docker enviro
 ### Cross compile Hello-TFLite
 1. Use official toolchain contained in Tensorflow Repo to cross compile tflite's minimal example (`minimal.cc`)
   ```bash
-  bazel build --config elinux_armhf hello-tflite --experimental_repo_remote_exe 
+  bazel build --config elinux_armhf //examples/hello_world:hello_world --experimental_repo_remote_exec
   ```
 2. Copy folders, `bazel-bin` and `models`, also tflite model files (in ./models) to Respi4b. After that place tflite model file and executable file `hello-tflite` in the same place to test.
   ```bash
@@ -37,7 +37,7 @@ PS: All examples listed below have passed the test in ubuntu:18.04 docker enviro
 
 2. Copy file to Respi4b
 
-### Cross compile external repo [image-lassifier](https://github.com/SunAriesCN/image-classifier) project
+### Cross compile external repo [Image-Classifier](https://github.com/SunAriesCN/image-classifier) project
 
 1. Cross compile project in external repo
   ```bash
@@ -46,7 +46,7 @@ PS: All examples listed below have passed the test in ubuntu:18.04 docker enviro
 
 2. Copy file to Respi4b
 
-### Cross compile external repo [mirnet](https://github.com/SunAriesCN/image-classifier) project
+### Cross compile external repo [MIRNET](https://github.com/SunAriesCN/image-classifier) project
 
 1. Cross compile project in external repo
   ```bash
