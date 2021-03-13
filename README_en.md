@@ -50,3 +50,11 @@ PS: All examples listed below have passed the test in ubuntu:18.04 docker enviro
   ```
 
 2. Copy file to Respi4b
+
+## About Bazel
+For we use Bazel to be our build and test tool, however some players still
+unfamiliar with this tool. So we list some useful resources for beginners.
+
+- [Bazel Official Guide to Bazel](https://docs.bazel.build/versions/master/guide.html)。
+- [Bazel Official Examples](https://github.com/bazelbuild/examples)
+- [Good Chinese Blog for Beginners](https://blog.csdn.net/elaine_bao/article/details/78668657)

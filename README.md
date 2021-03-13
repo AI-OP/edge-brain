@@ -49,3 +49,10 @@
   ```
 
 2. 拷贝文件至树莓派
+
+## 关于 Bazel
+由于我们主要使用 Bazel 作为项目的构建工具，但可能有些朋友还不了解 Bazel 的使用方法，所以这里给出几个可以带领大家快速入门的资料。
+
+- [Bazel 官网的入门教程](https://docs.bazel.build/versions/master/guide.html)。
+- [Bazel 官方的样例](https://github.com/bazelbuild/examples)
+- [较全的中文教程博客](https://blog.csdn.net/elaine_bao/article/details/78668657)
