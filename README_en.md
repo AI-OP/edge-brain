@@ -42,7 +42,7 @@ PS: All examples listed below have passed the test in ubuntu:18.04 docker enviro
 
 2. Copy file to Respi4b
 
-### Cross compile external repo [MIRNET](https://github.com/SunAriesCN/image-classifier) project
+### Cross compile [MIRNET](https://github.com/SunAriesCN/image-classifier) project
 
 1. Cross compile project in external repo
   ```bash
