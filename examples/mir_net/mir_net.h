@@ -23,12 +23,11 @@ limitations under the License.
 
 #include "absl/memory/memory.h"
 
-#define CHECK(condition, error_info) \
-    if(!(condition)) { \
-        printf("Error: %s\n", error_info);\
-        exit(-1); \
-    }\
-
+#define CHECK(condition, error_info)   \
+  if (!(condition)) {                  \
+    printf("Error: %s\n", error_info); \
+    exit(-1);                          \
+  }
 
 #define TFLITE_CHECK(x)                                      \
   if (!(x)) {                                                \
@@ -39,22 +38,25 @@ limitations under the License.
 namespace mirnet {
 
 enum ModelType {
-    kDynamicRange,
-    kInt8,
-    kFloat16,
+  kDynamicRange,
+  kInt8,
+  kFloat16,
 };
 
 class MIRNet {
  public:
   virtual bool Init(const std::string model_path, const ModelType& model_type);
-  virtual bool EnhanceImage(const cv::Mat& image, cv::Mat& output_image); 
+  virtual bool EnhanceImage(const cv::Mat& image, cv::Mat& output_image);
 
   virtual std::string GetModelName();
 
  private:
-  virtual bool Preprocess(const cv::Mat& image, cv::Mat& input_buffer, cv::Size& output_size);
-  virtual bool RunInference(const cv::Mat& input_buffer, cv::Mat& output_buffer);
-  virtual bool Postprocess(const cv::Mat& output_buffer, const cv::Size& size, cv::Mat& output_image);
+  virtual bool Preprocess(const cv::Mat& image, cv::Mat& input_buffer,
+                          cv::Size& output_size);
+  virtual bool RunInference(const cv::Mat& input_buffer,
+                            cv::Mat& output_buffer);
+  virtual bool Postprocess(const cv::Mat& output_buffer, const cv::Size& size,
+                           cv::Mat& output_image);
 
  private:
   std::unique_ptr<tflite::Interpreter> interpreter_;
@@ -70,6 +72,6 @@ class MIRNet {
   ~MIRNet() = default;
 };
 
-} //mirnet
+}  // namespace mirnet
 
-#endif //MIR_NET_H_
+#endif  // MIR_NET_H_
