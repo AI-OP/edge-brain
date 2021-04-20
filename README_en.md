@@ -58,3 +58,8 @@ unfamiliar with this tool. So we list some useful resources for beginners.
 - [Bazel Official Guide to Bazel](https://docs.bazel.build/versions/master/guide.html)。
 - [Bazel Official Examples](https://github.com/bazelbuild/examples)
 - [Good Chinese Blog for Beginners](https://blog.csdn.net/elaine_bao/article/details/78668657)
+
+## About Code style
+We recommend referring to the `Google Style Guide`, which can be found here:
+- [Google C++ Style Guide](https://google.github.io/styleguide/cppguide.html)。
+- [Google Python Style Guide](https://google.github.io/styleguide/pyguide.html)。

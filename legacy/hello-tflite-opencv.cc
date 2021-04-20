@@ -13,11 +13,11 @@ See the License for the specific language governing permissions and
 limitations under the License.
 ==============================================================================*/
 #include <cstdio>
+#include <opencv2/opencv.hpp>
 #include "tensorflow/lite/interpreter.h"
 #include "tensorflow/lite/kernels/register.h"
 #include "tensorflow/lite/model.h"
 #include "tensorflow/lite/optional_debug_tools.h"
-#include <opencv2/opencv.hpp>
 // This is an example that is minimal to read a model
 // from disk and perform inference. There is no data being loaded
 // that is up to you to add as a user.
@@ -35,13 +35,12 @@ limitations under the License.
   }
 
 int main(int argc, char* argv[]) {
-
   const int kImageHeight = 240;
   const int kImageWidth = 320;
 
   cv::Mat image(kImageHeight, kImageWidth, CV_8UC3);
 
-  image.setTo(cv::Scalar(0,255,0));
+  image.setTo(cv::Scalar(0, 255, 0));
 
   cv::imwrite("test_ok.jpg", image);
 
