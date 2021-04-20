@@ -13,6 +13,8 @@
 # limitations under the License.
 
 From ubuntu:18.04
+RUN  sed -i s@/archive.ubuntu.com/@/mirrors.aliyun.com/@g /etc/apt/sources.list
+RUN  apt-get clean
 RUN apt update -y \
       && apt install -y curl gnupg git vim python python3 python3-distutils python3-pip g++ unzip zip openjdk-11-jdk wget cmake make -y \
       && pip3 install numpy \
