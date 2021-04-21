@@ -56,3 +56,8 @@
 - [Bazel 官网的入门教程](https://docs.bazel.build/versions/master/guide.html)。
 - [Bazel 官方的样例](https://github.com/bazelbuild/examples)
 - [较全的中文教程博客](https://blog.csdn.net/elaine_bao/article/details/78668657)
+
+## 代码风格
+我们推荐使用Google编程规范，可以参考这里：
+- [Google C++编程规范](https://google.github.io/styleguide/cppguide.html)。
+- [Google Python编程规范](https://google.github.io/styleguide/pyguide.html)。

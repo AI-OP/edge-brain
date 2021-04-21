@@ -17,50 +17,47 @@ limitations under the License.
 #include "examples/mir_net/mir_net.h"
 
 namespace {
-    const std::string command = 
-        "{i |         | input image path}"
-        "{m | models  | model path}"
-        "{o | output.jpg | output image path}";
+const std::string command =
+    "{i |         | input image path}"
+    "{m | models  | model path}"
+    "{o | output.jpg | output image path}";
 }
 
-
 int main(int argc, char** argv) {
+  cv::CommandLineParser parser(argc, argv, command);
 
-    cv::CommandLineParser parser(argc, argv, command);
+  auto image_enhancer = absl::make_unique<mirnet::MIRNet>();
 
-    auto image_enhancer = absl::make_unique<mirnet::MIRNet>(); 
+  if (nullptr == image_enhancer) {
+    printf("Image Enhaner is null.\n");
+    return -1;
+  }
 
-    if(nullptr == image_enhancer) {
-        printf("Image Enhaner is null.\n");
-        return -1;
-    }
+  CHECK(parser.has("m"), "Error: Has no model...");
+  std::string model_dir = parser.get<std::string>("m");
+  image_enhancer->Init(model_dir, mirnet::kInt8);
 
-    CHECK(parser.has("m"), "Error: Has no model...");
-    std::string model_dir = parser.get<std::string>("m");
-    image_enhancer->Init(model_dir, mirnet::kInt8);
-    
-    CHECK(parser.has("i"), "Error: Has no image input.");
+  CHECK(parser.has("i"), "Error: Has no image input.");
 
-    std::string image_path = parser.get<std::string>("i");
-    cv::Mat image = cv::imread(image_path);
-    if(image.empty()) {
-        printf("Error: Image(%s) is empty.\n", image_path.c_str());
-        return -1;
-    }
+  std::string image_path = parser.get<std::string>("i");
+  cv::Mat image = cv::imread(image_path);
+  if (image.empty()) {
+    printf("Error: Image(%s) is empty.\n", image_path.c_str());
+    return -1;
+  }
 
-    cv::Mat enhanced_image;
-    cv::TickMeter tick_meter;
-    tick_meter.start();
-    image_enhancer->EnhanceImage(image, enhanced_image); 
-    tick_meter.stop();
+  cv::Mat enhanced_image;
+  cv::TickMeter tick_meter;
+  tick_meter.start();
+  image_enhancer->EnhanceImage(image, enhanced_image);
+  tick_meter.stop();
 
-    printf("It's take %lf ms to enhance an image.", tick_meter.getTimeMilli());
+  printf("It's take %lf ms to enhance an image.", tick_meter.getTimeMilli());
 
-    std::string output_image_path = parser.has("o") ? \
-                                    parser.get<std::string>("o") : \
-                                    "enhanced_image.jpg";
+  std::string output_image_path =
+      parser.has("o") ? parser.get<std::string>("o") : "enhanced_image.jpg";
 
-    cv::imwrite(output_image_path, enhanced_image);
-   
-    return 0;
+  cv::imwrite(output_image_path, enhanced_image);
+
+  return 0;
 }
