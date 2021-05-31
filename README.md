@@ -73,7 +73,7 @@ We recommend referring to the `Google Style Guide`, which can be found here:
 - [Google Python Style Guide](https://google.github.io/styleguide/pyguide.html)。
 
 ## References
-1.[sayakpaul/MIRNet-TFLite-TRT](sayakpaul/MIRNet-TFLite-TRT)
+[MIRNet-TFLite-TRT by Sayaka Paul](https://github.com/sayakpaul/MIRNet-TFLite-TRT)
 
 ## Thanks
 Google supported this work by providing Google Cloud credit
