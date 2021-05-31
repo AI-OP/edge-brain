@@ -41,18 +41,18 @@ PS: All examples listed below have passed the test in ubuntu:18.04 docker enviro
 
 2. Copy file to Respi4b
 
-### Cross compile external repo [Image-Classifier](https://github.com/SunAriesCN/image-classifier) project
+### Cross compile external [Image-Classifier](https://github.com/SunAriesCN/image-classifier) project
 
-1. Cross compile project in external repo
+1. Cross compile project in external repo.
   ```bash
   bazel build --config elinux_armhf //examples/image_benchmark:image_benchmark --experimental_repo_remote_exec
   ```
 
 2. Copy file to Respi4b
 
-### Cross compile [MIRNET](https://github.com/SunAriesCN/image-classifier) project
+### Cross compile [MIRNET](https://github.com/sayakpaul/MIRNet-TFLite-TRT) project
 
-1. Cross compile project in external repo
+1. Cross compile project with native examples.
   ```bash
   bazel build --config elinux_armhf //examples/mir_net:mir_net --experimental_repo_remote_exec # --verbose_failures
   ```
@@ -63,7 +63,7 @@ PS: All examples listed below have passed the test in ubuntu:18.04 docker enviro
 For we use Bazel to be our build and test tool, however some players still
 unfamiliar with this tool. So we list some useful resources for beginners.
 
-- [Bazel Official Guide to Bazel](https://docs.bazel.build/versions/master/guide.html)。
+- [Bazel Official Guide to Bazel](https://docs.bazel.build/versions/master/guide.html)
 - [Bazel Official Examples](https://github.com/bazelbuild/examples)
 - [Good Chinese Blog for Beginners](https://blog.csdn.net/elaine_bao/article/details/78668657)
 
@@ -72,5 +72,9 @@ We recommend referring to the `Google Style Guide`, which can be found here:
 - [Google C++ Style Guide](https://google.github.io/styleguide/cppguide.html)。
 - [Google Python Style Guide](https://google.github.io/styleguide/pyguide.html)。
 
+## References
+1.[sayakpaul/MIRNet-TFLite-TRT](sayakpaul/MIRNet-TFLite-TRT)
+
 ## Thanks
 Google supported this work by providing Google Cloud credit
+
