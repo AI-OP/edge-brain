@@ -1,4 +1,4 @@
-# Edge-Brain
+# Edge Brain
 
 In the past few years, we have gradually seen more and more smart terminal devices appearing in different corners of work and life, such as smart home appliances, mall customer service robots, unmanned logistics and distribution vehicles, smart surveillance, etc. They can bring everything to our lives. All kinds of convenience. 
 
