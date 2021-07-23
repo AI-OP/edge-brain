@@ -69,12 +69,12 @@ unfamiliar with this tool. So we list some useful resources for beginners.
 
 ## About Code style
 We recommend referring to the `Google Style Guide`, which can be found here:
-- [Google C++ Style Guide](https://google.github.io/styleguide/cppguide.html)。
-- [Google Python Style Guide](https://google.github.io/styleguide/pyguide.html)。
+- [Google C++ Style Guide](https://google.github.io/styleguide/cppguide.html)
+- [Google Python Style Guide](https://google.github.io/styleguide/pyguide.html)
 
 ## References
 [MIRNet-TFLite-TRT by Sayaka Paul](https://github.com/sayakpaul/MIRNet-TFLite-TRT)
 
 ## Thanks
-Google supported this work by providing Google Cloud credit
+Google supported this work by providing Google Cloud credit.
 
