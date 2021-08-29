@@ -21,4 +21,3 @@ RUN apt update -y \
       && mv bazelisk-linux-amd64 /usr/bin/bazel \
       && echo 'export PATH=$PATH:$HOME/bin' >> ~/.bashrc \
       && apt-get purge -y --auto-remove \
-      && rm -rf bazel-3.7.2-installer-linux-x86_64.sh
