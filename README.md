@@ -23,7 +23,7 @@ To this end, we developed Edge Brain to facilitate developers to deploy TensorFl
 ## How to test examples
 PS: All examples listed below have passed the test in ubuntu:18.04 docker environment. 
 
-### Cross compile Hello-TFLite
+### Cross compile Hello World
 1. Use official toolchain contained in Tensorflow Repo to cross compile tflite's minimal example (`minimal.cc`)
   ```bash
   bazel build --config elinux_armhf //examples/hello_world:hello_world --experimental_repo_remote_exec
@@ -33,7 +33,7 @@ PS: All examples listed below have passed the test in ubuntu:18.04 docker enviro
   /Path/To/Bazel-bin/test-tflite ./test-model.tflite # Will return model architecture
   ```
 
-### Cross compile Hello-OpenCV
+### Cross compile Hello OpenCV
 1. Cross compile OpenCV with toolchain, then compile `hello-opencv.cc`
   ```bash
   bazel build --config elinux_armhf //examples/hello_opencv:hello-opencv --experimental_repo_remote_exec
