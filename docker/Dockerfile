@@ -15,9 +15,18 @@
 From ubuntu:18.04
 RUN apt update -y \
       && apt install -y curl gnupg git vim python python3 python3-distutils python3-pip g++ unzip zip openjdk-11-jdk wget cmake make -y \
+       crossbuild-essential-armhf \
+       crossbuild-essential-arm64 \
+       libusb-1.0-0-dev \
+       libusb-1.0-0-dev:arm64 \
+       libusb-1.0-0-dev:armhf \
+       libglib2.0-dev \
+       libglib2.0-dev:armhf \
+       libglib2.0-dev:arm64 \ 
       && pip3 install numpy \
       && wget https://github.com/bazelbuild/bazelisk/releases/download/v1.7.5/bazelisk-linux-amd64 \
       && chmod +x bazelisk-linux-amd64 \
       && mv bazelisk-linux-amd64 /usr/bin/bazel \
       && echo 'export PATH=$PATH:$HOME/bin' >> ~/.bashrc \
       && apt-get purge -y --auto-remove \
+

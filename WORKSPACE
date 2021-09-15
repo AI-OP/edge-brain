@@ -48,7 +48,7 @@ http_archive(
     sha256 = "e0a111000aeed2051f29fcc7a3f83be3ad8c6c93c186e64beb1ad313f0c7f9f9",
     strip_prefix = "rules_closure-cf1e44edb908e9616030cc83d085989b8e6cd6df",
     urls = [
-        "http://mirror.tensorflow.org/github.com/bazelbuild/rules_closure/archive/cf1e44edb908e9616030cc83d085989b8e6cd6df.tar.gz",
+        # "http://mirror.tensorflow.org/github.com/bazelbuild/rules_closure/archive/cf1e44edb908e9616030cc83d085989b8e6cd6df.tar.gz",
         "https://github.com/bazelbuild/rules_closure/archive/cf1e44edb908e9616030cc83d085989b8e6cd6df.tar.gz",  # 2019-04-04
     ],
 )
@@ -69,9 +69,27 @@ git_repository(
     commit= "72d80543f1887375abb565988c12af1960fd311f",
 )
 
+
 # ABSL cpp library
 git_repository(
     name = "com_goolge_absl",
     remote = "https://github.com/abseil/abseil-cpp",
     commit = "6f9d96a1f41439ac172ee2ef7ccd8edf0e5d068c",
 )
+
+
+# Configure libedgetpu and downstream libraries (TF and Crosstool).
+http_archive(
+  name = "libedgetpu",
+  sha256 = "14d5527a943a25bc648c28a9961f954f70ba4d79c0a9ca5ae226e1831d72fe80",
+  strip_prefix = "libedgetpu-3164995622300286ef2bb14d7fdc2792dae045b7",
+  urls = [
+    "https://github.com/google-coral/libedgetpu/archive/3164995622300286ef2bb14d7fdc2792dae045b7.tar.gz"
+  ],
+)
+
+load("@libedgetpu//:workspace.bzl", "libedgetpu_dependencies")
+libedgetpu_dependencies()
+
+load("@coral_crosstool//:configure.bzl", "cc_crosstool")
+cc_crosstool(name = "crosstool")

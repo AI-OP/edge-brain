@@ -26,3 +26,16 @@ build:elinux --crosstool_top=@local_config_embedded_arm//:toolchain
 build:elinux --host_crosstool_top=@bazel_tools//tools/cpp:toolchain
 build:elinux_armhf --config=elinux
 build:elinux_armhf --cpu=armhf
+
+# Coral settings
+build:coral --define darwinn_portable=1
+build:coral --linkopt=-lusb0.0
+bazel:coral --crosstool_top=@crosstool//:toolchains
+bazel:coral --compiler=gcc
+bazel:coral --compilation_mode=opt
+bazel:coral --copt=-std=c++14
+bazel:coral --copt=-ffp-contract=off
+build:coral --cpu=aarch64
+bazel:coral --verbose_failures
+build:coral --experimental_repo_remote_exec
+build:coral --linkopt=-l:libusb-1.0.so
