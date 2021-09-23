@@ -14,7 +14,7 @@ limitations under the License.
 =======================================================================*/
 #include <cstdio>
 
-#include "examples/mir_net/mir_net.h"
+#include "examples/mir_net/mir_net/mir_net.h"
 
 namespace {
 const std::string command =

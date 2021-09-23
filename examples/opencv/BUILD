@@ -13,8 +13,8 @@
 # limitations under the License.
 
 cc_binary(
-    name = "hello-opencv",
-    srcs = ["hello-opencv.cc"],
+    name = "hello_opencv",
+    srcs = ["hello_opencv.cc"],
     deps = [
         "//third_party:opencv",
     ],

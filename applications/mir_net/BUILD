@@ -13,8 +13,16 @@
 # limitations under the License.
 # =======================================================================
 cc_binary(
+    name = "demo_mir_net",
+    srcs = "main.cc",
+    deps = [
+       ":mir_net"
+    ]
+)
+
+cc_library(
     name = "mir_net",
-    srcs = glob(["*.cc", "*.h"]),
+    srcs = glob(["mir_net/*.cc", "mir_net/*.h"]),
     deps = [
         "@org_tensorflow//tensorflow/lite:builtin_op_data",
         "@org_tensorflow//tensorflow/lite/kernels:builtin_ops",
