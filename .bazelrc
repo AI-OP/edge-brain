@@ -13,11 +13,11 @@
 # limitations under the License.
 
 # Use our custom-configured c++ toolchain.
-build:clang_config --crosstool_top=//toolchain:clang_suite
+build:clang_config --crosstool_top=//third_party/toolchain:clang_suite
 build:clang_config --cpu=k8
 build:clang_config --host_crosstool_top=@bazel_tools//tools/cpp:toolchain
 
-build:rpi --crosstool_top=//toolchain:respi_clang_suite
+build:rpi --crosstool_top=//third_party/toolchain:respi_clang_suite
 build:rpi --cpu=armhf
 build:rpi --host_crosstool_top=@bazel_tools//tools/cpp:toolchain
 
