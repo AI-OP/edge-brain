@@ -23,3 +23,4 @@ cc_binary(
         "@org_tensorflow//tensorflow/lite:framework",
     ],
 )
+

@@ -15,6 +15,17 @@
 licenses(["notice"])  # Apache 2.0
 
 alias(
-    name="image_benchmark",
-    actual="@image-classifier//image_classifier/apps/raspberry_pi:image_classifier_benchmark"
+    name = "image_classifier_rpi",
+    actual = "@image-classifier//image_classifier/apps/raspberry_pi:image_classifier",
 )
+
+alias(
+    name = "benchmark_rpi",
+    actual = "@image-classifier//image_classifier/apps/raspberry_pi:image_classifier_benchmark",
+)
+
+alias(
+    name = "benchmark_coral",
+    actual = "@image-classifier//image_classifier/apps/coral:image_classifier_benchmark_edgetpu",
+)
+
