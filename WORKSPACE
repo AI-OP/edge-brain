@@ -34,6 +34,25 @@ load("@rules_foreign_cc//:workspace_definitions.bzl", "rules_foreign_cc_dependen
 
 rules_foreign_cc_dependencies()
 ALL_CONTENT = """filegroup(name = "all", srcs = glob(["**"]), visibility = ["//visibility:public"])"""
+
+# Custom other thirdparty applications into repo as examples.
+#http_archive(
+#   name = "image_classifier",
+#   strip_prefix = "image-classifier-master",
+#   url = "https://github.com/SunAriesCN/image-classifier/archive/master.zip",
+#)
+
+local_repository(
+   name = "image_classifier",
+   path = "/root/workspace/image-classifier",
+)
+
+#git_repository(
+#    name = "image_classifier",
+#    remote = "https://github.com/SunAriesCN/image-classifier.git",
+#    commit = "", 
+#)
+
 # OpenCV
 new_git_repository(
     name = "opencv",
@@ -61,14 +80,6 @@ git_repository(
 
 load("@org_tensorflow//tensorflow:workspace.bzl", "tf_workspace")
 tf_workspace(tf_repo_name = "org_tensorflow")
-
-# Custom other thirdparty applications into repo as examples.
-git_repository(
-    name = "image-classifier",
-    remote = "https://github.com/SunAriesCN/image-classifier.git",
-    commit= "72d80543f1887375abb565988c12af1960fd311f",
-)
-
 
 # ABSL cpp library
 git_repository(

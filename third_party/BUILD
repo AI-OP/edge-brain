@@ -44,7 +44,9 @@ cmake_external(
         "CMAKE_BUILD_TYPE": "Release",
         # The module list is always sorted alphabetically so that we do not
         # cause a rebuild when changing the link order.
-        "CMAKE_TOOLCHAIN_FILE": "$EXT_BUILD_ROOT/external/opencv/platforms/linux/arm-gnueabi.toolchain.cmake",
+        # armeabi-v7a "CMAKE_TOOLCHAIN_FILE": "$EXT_BUILD_ROOT/external/opencv/platforms/linux/arm-gnueabi.toolchain.cmake",
+	# aarch64 "$EXT_BUILD_ROOT/external/opencv/platforms/linux/aarch64-gnu.toolchain.cmake", 
+	"CMAKE_TOOLCHAIN_FILE": "$EXT_BUILD_ROOT/external/opencv/platforms/linux/aarch64-gnu.toolchain.cmake",
         "BUILD_LIST": ",".join(sorted(OPENCV_MODULES)),
         "BUILD_TESTS": "OFF",
         "BUILD_PERF_TESTS": "OFF",
