@@ -13,11 +13,12 @@ See the License for the specific language governing permissions and
 limitations under the License.
 ==============================================================================*/
 #include <cstdio>
+
+#include "tensorflow/lite/delegates/gpu/delegate.h"
 #include "tensorflow/lite/interpreter.h"
 #include "tensorflow/lite/kernels/register.h"
 #include "tensorflow/lite/model.h"
 #include "tensorflow/lite/optional_debug_tools.h"
-#include "tensorflow/lite/delegates/gpu/delegate.h"
 
 // This is an example that is minimal to read a model
 // from disk and perform inference. There is no data being loaded
@@ -56,13 +57,13 @@ int main(int argc, char* argv[]) {
   std::unique_ptr<tflite::Interpreter> interpreter;
   builder(&interpreter);
   TFLITE_MINIMAL_CHECK(interpreter != nullptr);
-  
-   // NEW: Prepare GPU delegate.
-   auto* delegate = TfLiteGpuDelegateV2Create(/*default options=*/nullptr);
-   if (interpreter->ModifyGraphWithDelegate(delegate) != kTfLiteOk) {
-	   printf("GPU Delegate error.");
-	   return false;
-   }
+
+  // NEW: Prepare GPU delegate.
+  auto* delegate = TfLiteGpuDelegateV2Create(/*default options=*/nullptr);
+  if (interpreter->ModifyGraphWithDelegate(delegate) != kTfLiteOk) {
+    printf("GPU Delegate error.");
+    return false;
+  }
 
   // Allocate tensor buffers.
   TFLITE_MINIMAL_CHECK(interpreter->AllocateTensors() == kTfLiteOk);
@@ -83,7 +84,6 @@ int main(int argc, char* argv[]) {
   // TODO(user): Insert getting data out code.
   // Note: The buffer of the output tensor with index `i` of type T can
   // be accessed with `T* output = interpreter->typed_output_tensor<T>(i);`
-
 
   // NEW: Clean up.
   TfLiteGpuDelegateV2Delete(delegate);

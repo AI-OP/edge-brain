@@ -17,11 +17,11 @@ limitations under the License.
 
 #include <cstdio>
 #include <opencv2/opencv.hpp>
+
+#include "absl/memory/memory.h"
 #include "tensorflow/lite/interpreter.h"
 #include "tensorflow/lite/kernels/register.h"
 #include "tensorflow/lite/optional_debug_tools.h"
-
-#include "absl/memory/memory.h"
 
 #define CHECK(condition, error_info)   \
   if (!(condition)) {                  \

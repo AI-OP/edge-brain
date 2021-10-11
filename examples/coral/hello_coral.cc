@@ -19,7 +19,6 @@ limitations under the License.
 #include "tensorflow/lite/kernels/register.h"
 #include "tensorflow/lite/model.h"
 #include "tensorflow/lite/optional_debug_tools.h"
-
 #include "tflite/public/edgetpu.h"
 
 // This is an example that is minimal to read a model
@@ -72,9 +71,9 @@ int main(int argc, char* argv[]) {
   std::shared_ptr<edgetpu::EdgeTpuContext> edgetpu_context =
       edgetpu::EdgeTpuManager::GetSingleton()->OpenDevice();
   std::unique_ptr<tflite::Interpreter> interpreter =
-      BuildEdgeTpuInterpreter(*model, edgetpu_context.get());  
+      BuildEdgeTpuInterpreter(*model, edgetpu_context.get());
   TFLITE_MINIMAL_CHECK(interpreter != nullptr);
-  
+
   // Allocate tensor buffers.
   TFLITE_MINIMAL_CHECK(interpreter->AllocateTensors() == kTfLiteOk);
   printf("=== Pre-invoke Interpreter State ===\n");
@@ -94,7 +93,6 @@ int main(int argc, char* argv[]) {
   // TODO(user): Insert getting data out code.
   // Note: The buffer of the output tensor with index `i` of type T can
   // be accessed with `T* output = interpreter->typed_output_tensor<T>(i);`
-
 
   return 0;
 }
