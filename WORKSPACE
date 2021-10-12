@@ -35,23 +35,23 @@ load("@rules_foreign_cc//:workspace_definitions.bzl", "rules_foreign_cc_dependen
 rules_foreign_cc_dependencies()
 ALL_CONTENT = """filegroup(name = "all", srcs = glob(["**"]), visibility = ["//visibility:public"])"""
 
-# Custom other thirdparty applications into repo as examples.
-#http_archive(
-#   name = "image_classifier",
-#   strip_prefix = "image-classifier-master",
-#   url = "https://github.com/SunAriesCN/image-classifier/archive/master.zip",
-#)
-
-local_repository(
-   name = "image_classifier",
-   path = "/root/workspace/image-classifier",
-)
-
-#git_repository(
+# Custom other third party applications into repo as examples.
+# 
+# By the way, I world like to debug other application projects compilation with 
+# following codes. Your can uncomment them to customize your apps.
+# 
+# local_repository(
 #    name = "image_classifier",
-#    remote = "https://github.com/SunAriesCN/image-classifier.git",
-#    commit = "", 
-#)
+#    path = "/root/workspace/image-classifier",
+# )
+#
+
+# Custom Image Classifier applications by our team.
+http_archive(
+   name = "image_classifier",
+   strip_prefix = "image-classifier-master",
+   url = "https://github.com/SunAriesCN/image-classifier/archive/master.zip",
+)
 
 # OpenCV
 new_git_repository(
