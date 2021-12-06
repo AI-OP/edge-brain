@@ -53,6 +53,13 @@ http_archive(
    url = "https://github.com/SunAriesCN/image-classifier/archive/master.zip",
 )
 
+new_git_repository(
+   name = "ksai_toolkits",
+   remote = "https://github.com/kingsoft-wps/KSAI-Toolkits.git",
+   tag = "release_2021.10",
+   build_file = "@//third_party:ksai_toolkits.BUILD", 
+)
+
 # OpenCV
 new_git_repository(
     name = "opencv",
