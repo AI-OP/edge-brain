@@ -70,8 +70,7 @@ new_git_repository(
      "-p1",
    ],
    patches=[
-     "@//third_party:0001-replace-ksai-lite-capi.h-with-tensorflow-headers.patch",
-     #"@//third_party:0001-update-ocr-to-run.patch",
+     "@//third_party:ksai_toolkits_commit_5ad9406fe036ba60dbc190c823715bebdfa269d9.patch",
 
    ],
 )
