@@ -53,6 +53,28 @@ http_archive(
    url = "https://github.com/SunAriesCN/image-classifier/archive/master.zip",
 )
 
+# KSAI toolkits 
+http_archive(
+    name = "ksai_third_party",
+    strip_prefix = "3rdparty",
+    url = "https://sdk.ai.wpscdn.cn/KSAI/KSAI-Toolkits/3rdparty.zip",
+    build_file = "@//third_party:ksai_third_party.BUILD",
+)
+
+new_git_repository(
+   name = "ksai_toolkits",
+   remote = "https://github.com/kingsoft-wps/KSAI-Toolkits.git",
+   tag = "release_2021.10",
+   build_file = "@//third_party:ksai_toolkits.BUILD",
+   patch_args = [
+     "-p1",
+   ],
+   patches=[
+     "@//third_party:ksai_toolkits_commit_5ad9406fe036ba60dbc190c823715bebdfa269d9.patch",
+
+   ],
+)
+
 # OpenCV
 new_git_repository(
     name = "opencv",
