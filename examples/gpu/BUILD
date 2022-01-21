@@ -16,9 +16,9 @@ cc_binary(
     name = "hello_gpu",
     srcs = ["hello_gpu.cc"],
     deps = [
-        "@org_tensorflow//tensorflow/lite:framework",
         "@org_tensorflow//tensorflow/lite:builtin_op_data",
+        "@org_tensorflow//tensorflow/lite:framework",
+        "@org_tensorflow//tensorflow/lite/delegates/gpu:delegate",
         "@org_tensorflow//tensorflow/lite/kernels:builtin_ops",
-		"@org_tensorflow//tensorflow/lite/delegates/gpu:delegate"
     ],
 )

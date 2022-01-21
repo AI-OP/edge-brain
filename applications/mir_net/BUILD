@@ -16,19 +16,22 @@ cc_binary(
     name = "demo_mir_net",
     srcs = ["demo/main.cc"],
     deps = [
-       ":mir_net"
-    ]
+        ":mir_net",
+    ],
 )
 
 cc_library(
     name = "mir_net",
-    srcs = glob(["mir_net/*.cc", "mir_net/*.h"]),
+    srcs = glob([
+        "mir_net/*.cc",
+        "mir_net/*.h",
+    ]),
     deps = [
+        "//third_party:opencv",
+        "@com_google_absl//absl/memory",
         "@org_tensorflow//tensorflow/lite:builtin_op_data",
-        "@org_tensorflow//tensorflow/lite/kernels:builtin_ops",
         "@org_tensorflow//tensorflow/lite:framework",
         "@org_tensorflow//tensorflow/lite:tflite_with_xnnpack",
-        "@com_google_absl//absl/memory",
-        "//third_party:opencv"
-    ]
+        "@org_tensorflow//tensorflow/lite/kernels:builtin_ops",
+    ],
 )

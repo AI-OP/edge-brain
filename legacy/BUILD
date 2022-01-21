@@ -14,7 +14,7 @@
 
 cc_binary(
     name = "hello",
-    srcs = ["hello-world.cc"]
+    srcs = ["hello-world.cc"],
 )
 
 cc_binary(
@@ -22,28 +22,28 @@ cc_binary(
     srcs = ["hello-tflite.cc"],
     deps = [
         "@org_tensorflow//tensorflow/lite:builtin_op_data",
-        "@org_tensorflow//tensorflow/lite/kernels:builtin_ops",
         "@org_tensorflow//tensorflow/lite:framework",
+        "@org_tensorflow//tensorflow/lite/kernels:builtin_ops",
     ],
 )
 
 cc_binary(
     name = "hello-opencv",
     srcs = ["hello-opencv.cc"],
+    linkstatic = True,
     deps = [
         "//third_party:opencv",
     ],
-    linkstatic=True,
 )
 
 cc_binary(
     name = "hello-tflite-opencv",
     srcs = ["hello-tflite-opencv.cc"],
+    linkstatic = True,
     deps = [
+        "//third_party:opencv",
         "@org_tensorflow//tensorflow/lite:builtin_op_data",
-        "@org_tensorflow//tensorflow/lite/kernels:builtin_ops",
         "@org_tensorflow//tensorflow/lite:framework",
-	"//third_party:opencv",
+        "@org_tensorflow//tensorflow/lite/kernels:builtin_ops",
     ],
-    linkstatic=True,
 )

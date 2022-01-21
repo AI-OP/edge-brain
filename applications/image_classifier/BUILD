@@ -33,4 +33,3 @@ alias(
     name = "benchmark_coral_cpu_only",
     actual = "@image_classifier//image_classifier/apps/coral:image_classifier_benchmark_cpu_only",
 )
-
