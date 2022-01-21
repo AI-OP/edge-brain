@@ -19,7 +19,7 @@
 OPENCV_SHARED_LIBS = False
 
 OPENCV_TAG = "4.5.0"
-OPENCV_SO_VERSION = "4.5" # OPENCV_SO_VERSION need to match OPENCV_TAG
+OPENCV_SO_VERSION = "4.5"  # OPENCV_SO_VERSION need to match OPENCV_TAG
 
 # Note: this determines the order in which the libraries are passed to the
 # linker, so if library A depends on library B, library B must come _after_.
@@ -44,5 +44,5 @@ OPENCV_THIRD_PARTY_DEPS = [
     "libtegra_hal.a",
     "libzlib.a",
     "libade.a",
-    "liblibopenjp2.a"
+    "liblibopenjp2.a",
 ]
