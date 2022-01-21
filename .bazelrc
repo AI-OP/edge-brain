@@ -12,6 +12,9 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+# some default option
+build --experimental_repo_remote_exec
+
 # Use our custom-configured c++ toolchain.
 build:clang_config --crosstool_top=//third_party/toolchain:clang_suite
 build:clang_config --cpu=k8

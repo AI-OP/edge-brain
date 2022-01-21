@@ -14,7 +14,7 @@
 # =======================================================================
 cc_binary(
     name = "demo_mir_net",
-    srcs = "demo/main.cc",
+    srcs = ["demo/main.cc"],
     deps = [
        ":mir_net"
     ]
