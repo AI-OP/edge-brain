@@ -96,7 +96,7 @@ http_archive(
 git_repository(
     name = "org_tensorflow",
     remote = "https://github.com/tensorflow/tensorflow.git",
-    tag = "v2.4.0",  # v2.4.1
+    tag = "v2.8.0",  # v2.8.0
 )
 
 load("@org_tensorflow//tensorflow:workspace.bzl", "tf_workspace")
